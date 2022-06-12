@@ -7,12 +7,57 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:319226529515:android:018e00a3978c694db820ae",
+        "android_client_info": {
+          "package_name": "com.app.shohomy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "319226529515-dusbkgso9448npqr0d5jus7tnr584cmu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.shohomy",
+            "certificate_hash": "f6f4589986f798e8e1412315e5437a6b9291b36a"
+          }
+        },
+        {
+          "client_id": "319226529515-3l4m5548vpnnotu7a2ff9q5co652hikl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6hUfrdVr7x0t39ia_-BJrr8p-Ci2-iUQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "319226529515-3l4m5548vpnnotu7a2ff9q5co652hikl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:319226529515:android:3d8503754f8cdc69b820ae",
         "android_client_info": {
           "package_name": "com.example.shahowmy_app"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "319226529515-hn9lmunkqcjj0q96njj97fhkegb1t9ot.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.shahowmy_app",
+            "certificate_hash": "1528262635a0e56bbd657da4023e1072908a913c"
+          }
+        },
         {
           "client_id": "319226529515-num2j4j562qk1po8njppo6546kesp9dh.apps.googleusercontent.com",
           "client_type": 1,

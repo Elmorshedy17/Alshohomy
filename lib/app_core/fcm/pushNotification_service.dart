@@ -3,6 +3,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:shahowmy_app/app_core/app_core.dart';
 import 'package:shahowmy_app/app_core/fcm/FcmTokenManager.dart';
 import 'package:shahowmy_app/app_core/fcm/localNotificationService.dart';
+import 'package:shahowmy_app/app_core/resources/app_routes_names/app_routes_names.dart';
 
 class PushNotificationService {
   final FirebaseMessaging _fcm = FirebaseMessaging.instance;
@@ -43,7 +44,7 @@ class PushNotificationService {
 
     // FirebaseMessaging.onBackgroundMessage(onBackgroundMessage);
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage remoteMessage) {
-      _serializeAndNavigate(remoteMessage);
+      // _serializeAndNavigate(remoteMessage);
     });
 
 
@@ -68,6 +69,17 @@ class PushNotificationService {
 
 
   void _serializeAndNavigate(RemoteMessage message) {
+
+
+    if(locator<PrefsService>().userObj == null){
+      locator<NavigationService>().pushNamedTo(
+        AppRoutesNames.loginPage,
+      );
+    }else{
+      locator<NavigationService>().pushNamedTo(
+        AppRoutesNames.homePage,
+      );
+    }
 
     //
     // var id = message.data['id'];
@@ -101,6 +113,16 @@ Future<void> setupInteractedMessage() async {
   // a terminated state.
   RemoteMessage? initialMessage =
   await FirebaseMessaging.instance.getInitialMessage();
+
+  if(locator<PrefsService>().userObj == null){
+    locator<NavigationService>().pushNamedTo(
+        AppRoutesNames.loginPage,
+    );
+  }else{
+    locator<NavigationService>().pushNamedTo(
+      AppRoutesNames.homePage,
+    );
+  }
 
   // If the message also contains a data property with a "type" of "chat",
   // navigate to a chat screen
@@ -136,12 +158,12 @@ Future<void> setupInteractedMessage() async {
   //   print("onMessageOpenedApp: $message");
   //
   //
-  //   // locator<NavigationService>().pushNamedTo(
-  //   //     AppRouts.OrderDetailsPage,
-  //   //     arguments: OrderDetailsPageArgs(
-  //   //       orderId: message.data['model_id'],
-  //   //       // orderStatus: ordersItems![index].status
-  //   //     )
-  //   // );
+    // locator<NavigationService>().pushNamedTo(
+    //     AppRouts.OrderDetailsPage,
+    //     arguments: OrderDetailsPageArgs(
+    //       orderId: message.data['model_id'],
+    //       // orderStatus: ordersItems![index].status
+    //     )
+    // );
   // });
 }

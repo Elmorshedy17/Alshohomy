@@ -120,13 +120,17 @@ class _FilesWidgetState extends State<FilesWidget> {
                             openURL(operationFilesSnapshot.data!.files![index].link);
                           },
                           child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("${operationFilesSnapshot.data!.files![index].name}",style: AppFontStyle.labelBlackStyle,),
+                              Expanded(child: Text("${operationFilesSnapshot.data!.files![index].name}",style: AppFontStyle.labelBlackStyle,)),
+                              const SizedBox(
+                                width: 15,
+                              ),
                               SvgPicture.asset(
                                 AppAssets.download,
                                 // color: Colors.brown,
-                                height: 15,
+                                height: 20,
                               ),
                             ],
                           ),

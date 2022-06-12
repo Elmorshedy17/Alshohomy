@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,12 +20,12 @@ import 'package:shahowmy_app/features/login/login_page.dart';
 /// call.
 ///
 /// To verify things are working, check out the native platform logs.
-// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-//   // If you're going to use other Firebase services in the background, such as Firestore,
-//   // make sure you call `initializeApp` before using other Firebase services.
-//   await Firebase.initializeApp();
-//   print('Handling a background message ${message.messageId}');
-// }
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  // If you're going to use other Firebase services in the background, such as Firestore,
+  // make sure you call `initializeApp` before using other Firebase services.
+  await Firebase.initializeApp();
+  // print('Handling a background message ${message.messageId}');
+}
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,7 +34,7 @@ Future<void> main() async {
   //! Firebase Core.
   /// TODO: Uncomment when used Firebase
   await Firebase.initializeApp();
-  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   // Get any initial links
   // final PendingDynamicLinkData? initialLink =
@@ -163,7 +164,7 @@ class _ShahowmyAppState extends State<ShahowmyApp> {
                   //Setting font does not change with system font size
                   data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
                   child: LifeCycleAwareWidget(
-                    child: SafeArea(child: widget!),
+                    child: Material(child: SafeArea(child: widget!)),
                   ),
                 );
               },

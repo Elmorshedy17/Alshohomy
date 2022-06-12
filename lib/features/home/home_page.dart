@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> {
                       child: Container(
                         padding: EdgeInsets.only(top: 100.h,),
                         child: ListView(
-
+                          physics: const ClampingScrollPhysics(),
                           controller: homeManager.scrollController,
                           children: [
                             ListView.builder(
