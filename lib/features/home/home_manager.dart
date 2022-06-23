@@ -21,6 +21,8 @@ enum PaginationState {
  class HomeManager extends Manager<HomeResponse> {
 
 
+
+
   String? statusId = "";
   String? word ="";
   String? searchId ="";
@@ -290,6 +292,12 @@ List<HomeTabType> homeTabTypes = [
      id: "done",
      name: "مكتمل",
      iconUrl: AppAssets.done,
+     onPress:null
+ ),
+ HomeTabType(
+     id: "today",
+     name: "اليوم",
+     iconUrl: AppAssets.today,
      onPress:null
  ),
  if(locator<PrefsService>().userObj != null)

@@ -57,9 +57,9 @@ class _ChangeStatusWidgetState extends State<ChangeStatusWidget> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    if(!locator<OperationsInfoManager>().subject.hasValue){
+    // if(!locator<OperationsInfoManager>().subject.hasValue){
       locator<OperationsInfoManager>().execute(operationId: widget.operationId);
-    }
+    // }
   }
 
   // final oldStatusId = locator<HomeManager>().choicesStatusSubject.value.id;
@@ -120,42 +120,42 @@ class _ChangeStatusWidgetState extends State<ChangeStatusWidget> {
                                 ],
                               ),
                             ),
-                            StreamBuilder<ChoicesStatus>(
-                                initialData: ChoicesStatus(
-                                    name: "",
-                                    id: "",
-                                    active: ""
-                                ),
-                                stream: homeManager.choicesTransferSubject.stream,
-                                builder: (context, choicesTransferSnapshot) {
-                                  return CustomAnimatedOpenTile(
-                                    headerTxt:"تعديل الحالة",
-                                    body: SizedBox(
-                                      height: MediaQuery.of(context).size.height * .3,
-                                      child: ListView.separated(
-                                        // shrinkWrap: true,
-                                        // physics: const NeverScrollableScrollPhysics(),
-                                        itemCount: operationsInfoSnapshot.data!.choicesTransfer!.length,
-                                        separatorBuilder: (_, index) => const Divider(),
-                                        itemBuilder: (_, index) => InkWell(
-                                          onTap: (){
-                                            homeManager.choicesTransferSubject.sink.add(operationsInfoSnapshot.data!.choicesTransfer![index]);
-                                          },
-                                          child: SelectionWidget(
-                                            hasBorder: false,
-                                            title: operationsInfoSnapshot.data!.choicesTransfer![index].name!,
-                                            isSelected: choicesTransferSnapshot.data!.id == operationsInfoSnapshot.data!.choicesTransfer![index].id,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                }
-                            ),
-
-                            const SizedBox(
-                              height: 15,
-                            ),
+                            // StreamBuilder<ChoicesStatus>(
+                            //     initialData: ChoicesStatus(
+                            //         name: "",
+                            //         id: "",
+                            //         active: ""
+                            //     ),
+                            //     stream: homeManager.choicesTransferSubject.stream,
+                            //     builder: (context, choicesTransferSnapshot) {
+                            //       return CustomAnimatedOpenTile(
+                            //         headerTxt:"تحويل الحالة",
+                            //         body: SizedBox(
+                            //           height: MediaQuery.of(context).size.height * .3,
+                            //           child: ListView.separated(
+                            //             // shrinkWrap: true,
+                            //             // physics: const NeverScrollableScrollPhysics(),
+                            //             itemCount: operationsInfoSnapshot.data!.choicesTransfer!.length,
+                            //             separatorBuilder: (_, index) => const Divider(),
+                            //             itemBuilder: (_, index) => InkWell(
+                            //               onTap: (){
+                            //                 homeManager.choicesTransferSubject.sink.add(operationsInfoSnapshot.data!.choicesTransfer![index]);
+                            //               },
+                            //               child: SelectionWidget(
+                            //                 hasBorder: false,
+                            //                 title: operationsInfoSnapshot.data!.choicesTransfer![index].name!,
+                            //                 isSelected: choicesTransferSnapshot.data!.id == operationsInfoSnapshot.data!.choicesTransfer![index].id,
+                            //               ),
+                            //             ),
+                            //           ),
+                            //         ),
+                            //       );
+                            //     }
+                            // ),
+                            //
+                            // const SizedBox(
+                            //   height: 15,
+                            // ),
                             StreamBuilder<ChoicesStatus>(
                                 initialData: ChoicesStatus(
                                     name: "",
@@ -165,7 +165,7 @@ class _ChangeStatusWidgetState extends State<ChangeStatusWidget> {
                                 stream: homeManager.choicesStatusSubject.stream,
                                 builder: (context, choicesStatusSnapshot) {
                                   return CustomAnimatedOpenTile(
-                                    headerTxt:"تحويل الحالة",
+                                    headerTxt:"تعديل الحالة",
                                     body: SizedBox(
                                       height: MediaQuery.of(context).size.height * .3,
                                       child: ListView.separated(

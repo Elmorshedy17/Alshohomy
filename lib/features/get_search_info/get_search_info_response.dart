@@ -14,6 +14,26 @@ class SearchInfoResponse {
     status = json['status'];
     message = json['message'];
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is SearchInfoResponse &&
+          runtimeType == other.runtimeType &&
+          status == other.status &&
+          message == other.message &&
+          data == other.data &&
+          error == other.error &&
+          errorMsg == other.errorMsg;
+
+  @override
+  int get hashCode =>
+      status.hashCode ^
+      message.hashCode ^
+      data.hashCode ^
+      error.hashCode ^
+      errorMsg.hashCode;
+
   SearchInfoResponse({this.status, this.message, this.data});
 
   SearchInfoResponse.fromJson(Map<String, dynamic> json) {

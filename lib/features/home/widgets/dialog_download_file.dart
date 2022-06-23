@@ -61,9 +61,9 @@ class _FilesWidgetState extends State<FilesWidget> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    if(!locator<OperationFilesManager>().subject.hasValue){
+    // if(!locator<OperationFilesManager>().subject.hasValue){
       locator<OperationFilesManager>().execute(operationId: widget.operationId);
-    }
+    // }
   }
 
 

@@ -40,7 +40,7 @@ class _HomeTabsWidgetState extends State<HomeTabsWidget> {
                     return InkWell(
                       onTap: (){
 
-                        if(index == 5){
+                        if(index == 6){
                           if(context.use<PrefsService>().userObj!.contacts == "yes"){
                             Navigator.of(context).pushNamed(AppRoutesNames.contactsPage);
                           }else{
@@ -76,14 +76,14 @@ class _HomeTabsWidgetState extends State<HomeTabsWidget> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              if( index == 5) const  SizedBox(height: 13,),
-                              Image.asset(homeTabTypes[index].iconUrl!,fit: BoxFit.fill,width: index == 5 ? 50 : 100,),
-                              if( index == 5) const  SizedBox(height: 4,),
+                              // if( index == 5) const  SizedBox(height: 13,),
+                              Image.asset(homeTabTypes[index].iconUrl!,fit: BoxFit.fill,width:  100,),
+                              // if( index == 5) const  SizedBox(height: 4,),
 
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Expanded(child: Text("${homeTabTypes[index].name}",textAlign: TextAlign.center,style: homeTabTypeSnapshot.data?.id == homeTabTypes[index].id? AppFontStyle.labelBlackStyle.copyWith(color: AppStyle.oil,fontWeight: FontWeight.bold) : AppFontStyle.labelBlackStyle,)),
+                                  Expanded(child: Text("${homeTabTypes[index].name}",maxLines: 1,overflow: TextOverflow.ellipsis,textAlign: TextAlign.center,style: homeTabTypeSnapshot.data?.id == homeTabTypes[index].id? AppFontStyle.labelBlackStyle.copyWith(color: AppStyle.oil,fontWeight: FontWeight.bold) : AppFontStyle.labelBlackStyle,)),
                                 ],
                               )
                             ],

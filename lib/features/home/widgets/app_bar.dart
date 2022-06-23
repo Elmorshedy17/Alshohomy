@@ -7,6 +7,7 @@ import 'package:shahowmy_app/app_core/locator.dart';
 import 'package:shahowmy_app/app_core/resources/app_assets/app_assets.dart';
 import 'package:shahowmy_app/app_core/resources/app_routes_names/app_routes_names.dart';
 import 'package:shahowmy_app/app_core/services/prefs_service.dart';
+import 'package:shahowmy_app/features/get_search_info/get_search_info_manager.dart';
 import 'package:shahowmy_app/features/home/widgets/dialog_enquiry.dart';
 
 final FirebaseMessaging _fcm = FirebaseMessaging.instance;
@@ -25,6 +26,11 @@ class HomeAppBar extends StatelessWidget {
       centerTitle: true,
       leading: InkWell(
         onTap: (){
+          // locator<SearchInfoManager>().destinations.clear();
+          locator<SearchInfoManager>().open.sink.add(false);
+          // locator<SearchInfoManager>().searchDestinationController.clear();
+          // locator<SearchInfoManager>().resetDestinationsList();
+
           showEnquiryDialog(context);
         },
         child: Padding(
