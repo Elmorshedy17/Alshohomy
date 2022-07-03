@@ -3,4 +3,5 @@ abstract class AppRoutesNames {
   static const String loginPage = '/LoginPage';
   static const String homePage = '/HomePage';
   static const String contactsPage = '/ContactsPage';
+  static const String webViewPage = '/WebViewPage';
 }

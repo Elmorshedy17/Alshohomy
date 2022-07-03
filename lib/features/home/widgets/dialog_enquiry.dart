@@ -45,7 +45,7 @@ class _EnquiryWidgetState extends State<EnquiryWidget> {
   @override
   void initState() {
     // TODO: implement initState
-
+    locator<HomeManager>().fromTempStatus.sink.add(locator<HomeManager>().fromStatus.value);
     if(!locator<SearchInfoManager>().subject.hasValue){
       locator<SearchInfoManager>().execute();
 
@@ -101,8 +101,15 @@ class _EnquiryWidgetState extends State<EnquiryWidget> {
                                     InkWell(
                                         onTap: (){
                                           homeManager.resetManager(paginationReset: true, searchReset: true, statusReset: true);
-                                          homeManager.reCallManager();
+                                          homeManager.fromTempStatus.sink.add(HomeTabType(
+                                            name: "",
+                                            id: "",
+                                            iconUrl: "",
+                                            onPress: null,
+                                          ));
                                           searchInfoManager.resetDestinationsList();
+                                          homeManager.reCallManager();
+
                                           Navigator.of(context).pop();
                                         },
                                         child: Text("إعادة تعيين",style: AppFontStyle.labelBlackStyle.copyWith(fontSize: 12),)),
@@ -323,10 +330,11 @@ class _EnquiryWidgetState extends State<EnquiryWidget> {
                               itemBuilder: (context, index) {
                                 return  InkWell(
                                   onTap: (){
-                                    homeManager.statusSubject.sink.add(searchInfoSnapshot.data!.statusValues![index]);
                                     homeManager.changeStatus(
                                         newStatusId: "${searchInfoSnapshot.data!.statusValues![index].id}",
-                                        resetHomeStatus: true);
+                                       );
+                                    homeManager.statusSubject.sink.add(searchInfoSnapshot.data!.statusValues![index]);
+
                                   },
                                   child: Container(
                                     padding:const EdgeInsets.only(top: 5),
@@ -343,6 +351,56 @@ class _EnquiryWidgetState extends State<EnquiryWidget> {
                   const SizedBox(
                       height: 15,
                   ),
+                  StreamBuilder<HomeTabType>(
+                      stream: homeManager.fromTempStatus.stream,
+                      initialData: HomeTabType(
+                        name: "من",
+                        id: "",
+                        iconUrl: "",
+                        onPress: null,
+                      ),
+                      builder: (context, homeTabTypeSnapshot) {
+                        return Column(
+                          children: [
+
+                            CustomAnimatedOpenTile(
+                              headerTxt: homeTabTypeSnapshot.data!.name == "" ? "من" : homeTabTypeSnapshot.data!.name,
+                              body:  ListView.separated(
+                                  separatorBuilder: (BuildContext context, int index) {
+                                    return const Divider();
+                                  },
+                                shrinkWrap: true,
+                                  itemCount: homeTabTypesFrom.length,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  // scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, index) {
+                                    return InkWell(
+                                      onTap: (){
+                                        homeManager.fromTempStatus.sink.add(homeTabTypesFrom[index]);
+                                        homeManager.changeFrom(
+                                            newFromId: "${homeTabTypes[index].id}",);
+                                      },
+                                      child: Row(
+                                        children: [
+                                          Image.asset(homeTabTypesFrom[index].iconUrl!,fit: BoxFit.fill,width:  35,),
+                                          const SizedBox(
+                                            width: 8,
+                                          ),
+                                          Text("${homeTabTypesFrom[index].name}",maxLines: 1,overflow: TextOverflow.ellipsis,textAlign: TextAlign.center,style: homeTabTypeSnapshot.data?.id == homeTabTypes[index].id? AppFontStyle.labelBlackStyle.copyWith(color: AppStyle.oil,fontWeight: FontWeight.bold) : AppFontStyle.labelBlackStyle,)
+                                        ],
+                                      ),
+                                    );
+                                  }),
+                            ),
+
+
+                          ],
+                        );
+                      }
+                  ),
+                  const SizedBox(
+                      height: 15,
+                  ),
                   //// status end
                 ],
               ),
@@ -355,6 +413,7 @@ class _EnquiryWidgetState extends State<EnquiryWidget> {
                     ),
                     Center(
                       child: MainButtonWidget(title: "بحث",width: 150.w,onClick: (){
+                        homeManager.fromStatus.sink.add(homeManager.fromTempStatus.value);
                         homeManager.word = _nameController.text;
                         homeManager.searchId = _numberController.text;
                         homeManager.resetManager(paginationReset: true, searchReset: false, statusReset: false);

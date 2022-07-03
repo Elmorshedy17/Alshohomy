@@ -4,6 +4,7 @@ class User {
   String? email;
   String? phone;
   String? contacts;
+  String? statistics;
   String? authorization;
 
   User(
@@ -12,6 +13,7 @@ class User {
       this.email,
       this.phone,
         this.contacts,
+        this.statistics,
       this.authorization});
 
   User.fromJson(Map<String, dynamic> json) {
@@ -20,6 +22,7 @@ class User {
     email = json['email'];
     phone = json['phone'];
     contacts = json['contacts'];
+    statistics = json['statistics'];
     authorization = json['token'];
   }
 
@@ -30,6 +33,7 @@ class User {
     data['email'] = this.email;
     data['phone'] = this.phone;
     data['contacts'] = this.contacts;
+    data['statistics'] = this.statistics;
     data['token'] = this.authorization;
     return data;
   }

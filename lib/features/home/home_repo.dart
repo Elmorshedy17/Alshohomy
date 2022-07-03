@@ -5,10 +5,10 @@ import 'package:shahowmy_app/app_core/networking/api_provider.dart';
 import 'package:shahowmy_app/features/home/home_response.dart';
 
 class HomeRepo {
-  static Future<HomeResponse> home({required pageNum,String? status,String? destinationId,String? id,String? name}) async {
+  static Future<HomeResponse> home({required pageNum,String? status,String? destinationId,String? id,String? name,fromId}) async {
     try {
       final Response response = await locator<ApiService>().dioClient.get(
-            '${locator<ApiService>().dioClient.options.baseUrl}home_screen?status=$status&page=$pageNum&destination_id=$destinationId&name=$name&id=$id',
+            '${locator<ApiService>().dioClient.options.baseUrl}home_screen?status=$status&page=$pageNum&destination_id=$destinationId&name=$name&id=$id&from=$fromId',
           );
 
       return HomeResponse.fromJson(response.data);

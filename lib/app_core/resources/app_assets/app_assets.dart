@@ -27,5 +27,6 @@ abstract class AppAssets {
   // static const String contacts = 'assets/images/contacts.svg';
   static const String contacts = 'assets/images/contacts.png';
   static const String today = 'assets/images/today.png';
+  static const String statics = 'assets/images/statics.png';
 }
 

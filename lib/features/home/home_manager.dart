@@ -24,26 +24,30 @@ enum PaginationState {
 
 
   String? statusId = "";
+  String? fromId = "";
   String? word ="";
   String? searchId ="";
 
-  void changeStatus({required bool? resetHomeStatus,required String? newStatusId}){
-  if(resetHomeStatus == true){
-   status.sink.add(HomeTabType(
+  void changeFrom({required String? newFromId}){
+   fromStatus.sink.add(HomeTabType(
     name: "",
     id: "",
     iconUrl: "",
     onPress: null,
    ));
-  }else{
-   statusSubject.sink.add(Destination(
-       id: "",
-       name: "حالة"
-   ));
-  }
-  statusId = "$newStatusId";
+
+  fromId = "$newFromId";
  }
 
+
+  void changeStatus({required String? newStatusId}){
+   statusSubject.sink.add(Destination(
+    name: "حالة",
+    id: "",
+   ));
+
+   statusId = "$newStatusId";
+  }
 
   // final ValueNotifier<int> _selectionNotifier = ValueNotifier(-1);
   // set inSelected(int newValue) => _selectionNotifier.value = newValue;
@@ -94,7 +98,15 @@ enum PaginationState {
   final PublishSubject<HomeResponse> _homeResponseSubject =
   PublishSubject<HomeResponse>();
 
-  BehaviorSubject<HomeTabType> status =
+  BehaviorSubject<HomeTabType> fromStatus =
+  BehaviorSubject.seeded(HomeTabType(
+   name: "",
+   id: "",
+   iconUrl: "",
+   onPress: null,
+  ));
+
+  BehaviorSubject<HomeTabType> fromTempStatus =
   BehaviorSubject.seeded(HomeTabType(
    name: "",
    id: "",
@@ -131,7 +143,8 @@ enum PaginationState {
    if (maxPageNum >= currentPageNum) {
     inPaginationState.add(PaginationState.loading);
     await HomeRepo.home(pageNum: currentPageNum,
-    status: statusId,
+    fromId: "$fromId",
+    status: "$statusId",
     id: "$searchId",
     name: "$word",
     destinationId: "${destinationSubject.value.id}")
@@ -154,7 +167,8 @@ enum PaginationState {
    if (maxPageNum >= currentPageNum) {
     inPaginationState.add(PaginationState.loading);
     await HomeRepo.home(pageNum: currentPageNum,
-        status:  statusId,
+        fromId: "$fromId",
+        status: "$statusId",
         id: "$searchId",
         name: "$word",
         destinationId: "${destinationSubject.value.id}")
@@ -191,7 +205,8 @@ enum PaginationState {
   void reCallManager() {
    Stream.fromFuture(
     HomeRepo.home(pageNum: currentPageNum,
-        status:  statusId,
+        fromId: "$fromId",
+        status: "$statusId",
         id: "$searchId",
         name: "$word",
         destinationId: "${destinationSubject.value.id}"),
@@ -218,16 +233,26 @@ enum PaginationState {
      name: "حالة",
      id: "",
     ));
-    word ="";
-    searchId ="";
-   }
-   if(statusReset == true){
-    status.sink.add(HomeTabType(
+    fromTempStatus.sink.add(HomeTabType(
      name: "",
      id: "",
      iconUrl: "",
      onPress: null,
     ));
+    word ="";
+    searchId ="";
+   }
+   if(statusReset == true){
+    fromStatus.sink.add(HomeTabType(
+     name: "",
+     id: "",
+     iconUrl: "",
+     onPress: null,
+    ));
+
+
+    statusId = "";
+     fromId = "";
    }
    if(paginationReset == true){
     currentPageNum = 1;
@@ -266,7 +291,7 @@ class  HomeTabType{
 List<HomeTabType> homeTabTypes = [
  HomeTabType(
      id: "inbox",
-     name: "الوارد",
+     name: "الكل",
      iconUrl: AppAssets.inbox,
      onPress:null
  ),
@@ -308,4 +333,54 @@ List<HomeTabType> homeTabTypes = [
        iconUrl: AppAssets.contacts,
        onPress:null
    ),
+ if(locator<PrefsService>().userObj != null)
+  if(locator<PrefsService>().userObj!.statistics == "yes")
+   HomeTabType(
+       id: "statistics",
+       name: "الاحصائيات",
+       iconUrl: AppAssets.statics,
+       onPress:null
+   ),
+];
+
+
+
+
+List<HomeTabType> homeTabTypesFrom = [
+ HomeTabType(
+     id: "inbox",
+     name: "الكل",
+     iconUrl: AppAssets.inbox,
+     onPress:null
+ ),
+ HomeTabType(
+     id: "pending",
+     name: "مسودة",
+     iconUrl: AppAssets.draft,
+     onPress:null
+ ),
+ HomeTabType(
+     id: "scheduled",
+     name: "مؤجلة",
+     iconUrl: AppAssets.delay,
+     onPress:null
+ ),
+ HomeTabType(
+     id: "delay",
+     name: "متأخر",
+     iconUrl: AppAssets.late,
+     onPress:null
+ ),
+ HomeTabType(
+     id: "done",
+     name: "مكتمل",
+     iconUrl: AppAssets.done,
+     onPress:null
+ ),
+ HomeTabType(
+     id: "today",
+     name: "اليوم",
+     iconUrl: AppAssets.today,
+     onPress:null
+ ),
 ];

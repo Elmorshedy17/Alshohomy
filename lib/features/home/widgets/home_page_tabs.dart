@@ -6,6 +6,7 @@ import 'package:shahowmy_app/features/home/home_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shahowmy_app/app_core/app_core.dart';
 import 'package:shahowmy_app/features/home/home_page.dart';
+import 'package:shahowmy_app/features/web_view_page/web_view_page.dart';
 
 
 class HomeTabsWidget extends StatefulWidget {
@@ -22,7 +23,7 @@ class _HomeTabsWidgetState extends State<HomeTabsWidget> {
     final homeManager = context.use<HomeManager>();
 
     return StreamBuilder<HomeTabType>(
-        stream: homeManager.status,
+        stream: homeManager.fromStatus.stream,
         initialData: HomeTabType(
           name: "",
           id: "",
@@ -40,11 +41,25 @@ class _HomeTabsWidgetState extends State<HomeTabsWidget> {
                     return InkWell(
                       onTap: (){
 
-                        if(index == 6){
-                          if(context.use<PrefsService>().userObj!.contacts == "yes"){
-                            Navigator.of(context).pushNamed(AppRoutesNames.contactsPage);
-                          }else{
-                            context.use<ToastTemplate>().show("جهات الإتصال غير متاحة");
+                        if(index == 6 || index == 7){
+                          if(index == 6){
+                            if(context.use<PrefsService>().userObj!.contacts == "yes"){
+                              Navigator.of(context).pushNamed(AppRoutesNames.contactsPage);
+                            }else{
+                              context.use<ToastTemplate>().show("جهات الإتصال غير متاحة");
+                            }
+                          }
+
+                            if(index == 7){
+                              if(context.use<PrefsService>().userObj!.statistics == "yes"){
+
+                                Navigator.of(context).pushNamed(AppRoutesNames.webViewPage,
+                                    arguments:
+                                    WebViewArgs(url:"https://alshohomikw.com/statistics?auth=${locator<PrefsService>().userObj!.authorization}" ));
+
+                              }else{
+                                context.use<ToastTemplate>().show("الاحصائيات غير متاحة");
+                              }
                           }
 
                         }else{
@@ -54,14 +69,15 @@ class _HomeTabsWidgetState extends State<HomeTabsWidget> {
                               statusReset: true
                           );
                           if(homeTabTypeSnapshot.data?.id == homeTabTypes[index].id){
-                            homeManager.changeStatus(
-                                newStatusId: "",
-                                resetHomeStatus: true);
+                            homeManager.changeFrom(
+                                newFromId: "",
+                               );
                           }else{
-                            homeManager.status.sink.add(homeTabTypes[index]);
-                            homeManager.changeStatus(
-                                newStatusId: "${homeTabTypes[index].id}",
-                                resetHomeStatus: false);
+                            // homeManager.fromStatus.sink.add(homeTabTypes[index]);
+                            homeManager.changeFrom(
+                                newFromId: "${homeTabTypes[index].id}",);
+                            homeManager.fromStatus.sink.add(homeTabTypes[index]);
+
                           }
                           homeManager.inPaginationState.add(PaginationState.loading);
                           homeManager.reCallManager();

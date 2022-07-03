@@ -8,11 +8,11 @@ import 'package:shahowmy_app/shared/selection_widget/selection_widget.dart';
 class HomeItemData extends StatelessWidget {
 
   String?id, title,name,status,hash,phone;
-  final Function? editOnClick,downloadFilesOnClick;
+  final Function? editOnClick,downloadFilesOnClick,moreOnClick;
 
 
 
-  HomeItemData({Key? key,this.hash,this.name,this.phone,this.status,this.title,this.id,this.editOnClick,this.downloadFilesOnClick}) : super(key: key);
+  HomeItemData({Key? key,this.hash,this.name,this.phone,this.status,this.title,this.id,this.editOnClick,this.downloadFilesOnClick,this.moreOnClick}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +65,28 @@ class HomeItemData extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: (){
+                        moreOnClick!();
+                      },
+                      child: Row(
+                        children: [
+                          SvgPicture.asset(
+                            AppAssets.info,
+                            color: Colors.grey,
+                            height: 12,
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Text("المزيد",style: AppFontStyle.labelBlackStyle.copyWith(fontSize:12 ),)
+
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    InkWell(
+                      onTap: (){
                         editOnClick!();
                       },
                       child: Row(
@@ -72,18 +94,18 @@ class HomeItemData extends StatelessWidget {
                           SvgPicture.asset(
                             AppAssets.edit,
                             // color: Colors.brown,
-                            height: 15,
+                            height: 12,
                           ),
                           const SizedBox(
                             width: 10,
                           ),
-                          Text("تعديل",style: AppFontStyle.labelBlackStyle,)
+                          Text("تعديل",style: AppFontStyle.labelBlackStyle.copyWith(fontSize:12 ),)
 
                         ],
                       ),
                     ),
                     const SizedBox(
-                      width: 40,
+                      width: 20,
                     ),
                     InkWell(
                       onTap: (){
@@ -94,12 +116,12 @@ class HomeItemData extends StatelessWidget {
                           SvgPicture.asset(
                             AppAssets.files,
                             // color: Colors.brown,
-                            height: 15,
+                            height: 12,
                           ),
                           const SizedBox(
                             width: 10,
                           ),
-                          Text("الملفات",style: AppFontStyle.labelBlackStyle,)
+                          Text("الملفات",style: AppFontStyle.labelBlackStyle.copyWith(fontSize:12 ),)
                         ],
                       ),
                     ),

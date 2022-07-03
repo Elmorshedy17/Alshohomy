@@ -1,4 +1,3 @@
-
 import 'package:shahowmy_app/shared/domain/user.dart';
 
 class AuthResponse {

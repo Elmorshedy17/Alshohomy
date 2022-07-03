@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shahowmy_app/app_core/resources/app_assets/app_assets.dart';
+import 'package:shahowmy_app/app_core/resources/app_routes_names/app_routes_names.dart';
 import 'package:shahowmy_app/app_core/resources/app_style/app_style.dart';
 import 'package:shahowmy_app/features/home/home_manager.dart';
 import 'package:shahowmy_app/features/home/home_response.dart';
@@ -12,6 +13,7 @@ import 'package:shahowmy_app/features/home/widgets/home_item.dart';
 import 'package:shahowmy_app/features/home/widgets/dialog_view_change_status.dart';
 import 'package:shahowmy_app/features/home/widgets/home_page_tabs.dart';
 import 'package:shahowmy_app/app_core/app_core.dart';
+import 'package:shahowmy_app/features/web_view_page/web_view_page.dart';
 import 'package:shahowmy_app/shared/not_available_widget/not_available_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -93,6 +95,11 @@ class _HomePageState extends State<HomePage> {
                                     title: homeManager.operations[index].destination,
                                     id: "${homeManager.operations[index].id}",
                                     phone: homeManager.operations[index].phone,
+                                    moreOnClick: (){
+                                      Navigator.of(context).pushNamed(AppRoutesNames.webViewPage,
+                                          arguments:
+                                          WebViewArgs(url:"${homeManager.operations[index].link}"));
+                                    },
                                     editOnClick: (){
                                       // homeManager.inSelected = changeStatus[index].id!;
                                       showChangeStatusDialog(context,homeManager.operations[index].id);

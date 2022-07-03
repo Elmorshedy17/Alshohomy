@@ -29,24 +29,7 @@ class ContactsInfoResponse {
     }
   }
 
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is ContactsInfoResponse &&
-          runtimeType == other.runtimeType &&
-          status == other.status &&
-          message == other.message &&
-          contact == other.contact &&
-          error == other.error &&
-          errorMsg == other.errorMsg;
 
-  @override
-  int get hashCode =>
-      status.hashCode ^
-      message.hashCode ^
-      contact.hashCode ^
-      error.hashCode ^
-      errorMsg.hashCode;
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
@@ -64,14 +47,16 @@ class Contact {
   String? name;
   String? phone;
   String? destination;
+  String? notes;
 
-  Contact({this.id, this.name, this.phone, this.destination});
+  Contact({this.id, this.name, this.phone, this.destination,this.notes});
 
   Contact.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     phone = json['phone'];
     destination = json['destination'];
+    notes = json['notes'];
   }
 
   Map<String, dynamic> toJson() {
@@ -80,7 +65,27 @@ class Contact {
     data['name'] = this.name;
     data['phone'] = this.phone;
     data['destination'] = this.destination;
+    data['notes'] = this.notes;
     return data;
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Contact &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          name == other.name &&
+          phone == other.phone &&
+          destination == other.destination &&
+          notes == other.notes;
+
+  @override
+  int get hashCode =>
+      id.hashCode ^
+      name.hashCode ^
+      phone.hashCode ^
+      destination.hashCode ^
+      notes.hashCode;
 }
 

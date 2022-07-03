@@ -115,6 +115,16 @@ class _ContactsPageState extends State<ContactsPage> {
                                                   Icon(Icons.phone,size: 20,color: Colors.green.withOpacity(.5),),
                                                 ],),
                                             ),
+                                            const SizedBox(
+                                              height: 15,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              children: [
+                                                Expanded(child: Text("الملاحظات : ${contactsListSnapshot.data![index].notes}",)),
+                                                Icon(Icons.info,size: 20,color: Colors.red.withOpacity(.3),),
+                                              ],),
                                           ],
                                         ),
                                       ),

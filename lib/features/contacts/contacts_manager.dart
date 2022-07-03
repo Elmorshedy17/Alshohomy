@@ -26,7 +26,7 @@ void resetContactList(){
 void searchInContacts({required String word}){
   contacts.clear();
   for (var contact in subject.value.contact!) {
-    if(contact.name!.contains(word) || contact.phone!.contains(word) || contact.destination!.contains(word)){
+    if(contact.name!.contains(word) || contact.phone!.contains(word) || contact.destination!.contains(word) || contact.notes!.contains(word)){
       contacts.add(contact);
     }
   }
